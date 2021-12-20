@@ -6,6 +6,8 @@ const methodOverride = require('method-override')
 const route = require('./routes')
 const db = require('./config/db')
 
+const sortMiddleware = require('./app/middlewares/sortMiddleware')
+
 // connect to DB
 db.connect();
 
@@ -19,6 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true})) // setup middleware
 app.use(express.json()) // post code Js to server
 
+// custom middleware
+app.use(sortMiddleware)
+
 // HTTP logger
 // app.use(morgan('combined'));
 
@@ -27,15 +32,13 @@ app.use(methodOverride('_method'))
 // Template engine
 app.engine('hbs', handlebars({
     extname: '.hbs',
-    helpers: {
-        sum: (a, b) => a + b,
-    }
+    helpers: require('./helpers/handlebars')
 }))
 app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, 'resource', 'views'))
+app.set('views', path.join(__dirname, 'resources', 'views'))
 
 console.log(__dirname) // logs: info file index.js
-console.log('PATH ', path.join(__dirname, 'resource', 'views'))
+console.log('PATH: ', path.join(__dirname, 'resource', 'views'))
 
 // Home, search, contact
 

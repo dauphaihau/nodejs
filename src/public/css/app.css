@@ -1,9 +1,13 @@
 h1 {
-  color: #000000; }
+    color: #000000;
+}
 
 h2 {
-  color: red; }
+    color: red;
+}
 
 .style {
-  background-color: red;
-  color: white; }
+    background-color: red;
+    color: white;
+}
+

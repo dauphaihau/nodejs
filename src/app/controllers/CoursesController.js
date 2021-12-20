@@ -26,9 +26,12 @@ class CoursesController {
 
         const formData = req.body;
         const course = new Course(formData);
-        course.save();
+        course
+            .save()
+            .then(() => res.redirect('me/stored/courses'))
+            .catch(next);
 
-        res.send('COURSE SAVED!')
+        // res.send('COURSE SAVED!')
     }
 
     // [GET] /courses/:id/edit
